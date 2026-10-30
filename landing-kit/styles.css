@@ -2,28 +2,6 @@
 
 @source "./dist";
 
-.brand-partner-carousel { min-width: 0; }
-.brand-partner-marquee { overflow: hidden; padding-block: 16px; }
-.brand-partner-marquee:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
-.brand-partner-track { display: flex; width: max-content; animation: brand-partner-scroll 48s linear infinite; }
-.brand-partner-marquee:hover .brand-partner-track,
-.brand-partner-marquee:focus-within .brand-partner-track { animation-play-state: paused; }
-.brand-partner-group { display: flex; flex: 0 0 auto; gap: 16px; margin: 0; padding: 0 16px 0 0; list-style: none; }
-.brand-partner-group > li { flex: 0 0 230px; }
-.brand-partner-card { min-height: 150px; }
-.brand-partner-card > img,
-.brand-partner-card > [role="img"] { align-self: center; margin-inline: auto; }
-
 @keyframes brand-partner-scroll {
   to { transform: translateX(-50%); }
-}
-
-@media (max-width: 680px) {
-  .brand-partner-group { gap: 12px; padding-right: 12px; }
-  .brand-partner-group > li { flex-basis: 190px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .brand-partner-marquee { overflow-x: auto; }
-  .brand-partner-track { animation: none; }
 }

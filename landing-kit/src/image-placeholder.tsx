@@ -8,7 +8,7 @@ export interface ImagePlaceholderProps {
 
 export function ImagePlaceholder({
   alt,
-  className = "aspect-[3/1] w-full",
+  className = "aspect-3/1 w-full",
   label = "Image",
 }: ImagePlaceholderProps) {
   const placeholderRef = useRef<HTMLDivElement>(null);

@@ -59,7 +59,7 @@ function CategoryItems({
             >
               {category.name}
               {category.children?.length ? (
-                <span aria-hidden="true" className="catalog-category-indicator">
+                <span aria-hidden="true" className="ml-3 text-base leading-none text-current">
                   {isExpanded ? "−" : "+"}
                 </span>
               ) : null}
