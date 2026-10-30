@@ -22,7 +22,7 @@ function PartnerItems({ partners, duplicate = false }: BrandPartnerGridProps & {
             ) : (
               <ImagePlaceholder
                 alt={partner.logo.alt}
-                label="Logo brand"
+                label="Brand logo"
                 className="aspect-[3/2] w-full max-w-[300px] rounded-md"
               />
             )}
@@ -41,7 +41,7 @@ export function BrandPartnerGrid({ partners }: BrandPartnerGridProps) {
       <div
         className="brand-partner-marquee"
         role="region"
-        aria-label="Brand partner I-Tech Lafacos"
+        aria-label="I-Tech Lafacos brand partners"
         tabIndex={0}
       >
         <div className="brand-partner-track">

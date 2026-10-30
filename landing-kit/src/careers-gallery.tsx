@@ -26,7 +26,7 @@ export function CareersGallery({ images }: CareersGalleryProps) {
               <button
                 type="button"
                 className="career-gallery-trigger"
-                aria-label={`Lihat gambar: ${image.alt}`}
+                aria-label={`View image: ${image.alt}`}
                 onClick={() => setActiveImage(image)}
               >
                 <img
@@ -49,7 +49,7 @@ export function CareersGallery({ images }: CareersGalleryProps) {
       <dialog
         ref={dialogRef}
         className="career-image-dialog"
-        aria-label={activeImage?.alt ?? "Gambar karier"}
+        aria-label={activeImage?.alt ?? "Career image"}
         onClose={() => setActiveImage(null)}
         onClick={(event) => {
           if (event.target === event.currentTarget) setActiveImage(null);
@@ -58,7 +58,7 @@ export function CareersGallery({ images }: CareersGalleryProps) {
         <button
           type="button"
           className="career-image-dialog-close"
-          aria-label="Tutup gambar"
+          aria-label="Close image"
           onClick={() => setActiveImage(null)}
         >
           ×

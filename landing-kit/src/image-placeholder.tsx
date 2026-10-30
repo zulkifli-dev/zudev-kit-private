@@ -9,7 +9,7 @@ export interface ImagePlaceholderProps {
 export function ImagePlaceholder({
   alt,
   className = "aspect-[3/1] w-full",
-  label = "CMS image",
+  label = "Image",
 }: ImagePlaceholderProps) {
   const placeholderRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
@@ -39,7 +39,7 @@ export function ImagePlaceholder({
     >
       {label} · {dimensions.width && dimensions.height
         ? `${dimensions.width} × ${dimensions.height}`
-        : "mengukur ukuran"}
+        : "Measuring size"}
     </div>
   );
 }
