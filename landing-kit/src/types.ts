@@ -5,6 +5,13 @@ export interface ProductCategory {
   children?: ProductCategory[];
 }
 
+export interface BrandPartner {
+  id: string;
+  name: string;
+  country: string;
+  logo: ImageAsset;
+}
+
 export interface ImageAsset {
   src?: string;
   alt: string;

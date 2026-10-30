@@ -5,11 +5,13 @@ import type { Product } from "./types.js";
 export interface ProductGridProps {
   products: Product[];
   productHref?: (product: Product) => string;
+  actionLabel?: string;
 }
 
 export function ProductGrid({
   products,
   productHref = (product) => `/products/${product.slug}`,
+  actionLabel = "View product",
 }: ProductGridProps) {
   return (
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -39,6 +41,9 @@ export function ProductGrid({
                 <p className="line-clamp-2 text-sm text-muted-foreground">
                   {product.description}
                 </p>
+                <span className="inline-flex min-h-9 items-center gap-2 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors group-hover:bg-primary/90">
+                  {actionLabel}<span aria-hidden="true">→</span>
+                </span>
               </CardContent>
             </Card>
           </a>
