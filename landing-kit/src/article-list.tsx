@@ -4,6 +4,7 @@ import {
   CardDescription,
   CardTitle,
 } from "@zudev/ui/components/card";
+import { ImagePlaceholder } from "./image-placeholder.js";
 import type { Article } from "./types.js";
 
 export interface ArticleListProps {
@@ -26,12 +27,20 @@ export function ArticleList({
             className="group block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Card className="group-hover:shadow-md p-0 h-full overflow-hidden transition-shadow">
-              <img
-                src={article.image.src}
-                alt={article.image.alt}
-                className="w-full object-cover aspect-video"
-                loading="lazy"
-              />
+              {article.image.src ? (
+                <img
+                  src={article.image.src}
+                  alt={article.image.alt}
+                  className="w-full object-cover aspect-video"
+                  loading="lazy"
+                />
+              ) : (
+                <ImagePlaceholder
+                  alt={article.image.alt}
+                  className="aspect-video w-full rounded-none"
+                  label="Article image"
+                />
+              )}
               <CardContent className="space-y-3 py-5">
                 <time
                   dateTime={article.publishedAt}

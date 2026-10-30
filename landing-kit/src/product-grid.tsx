@@ -1,4 +1,5 @@
 import { Card, CardContent, CardTitle } from "@zudev/ui/components/card";
+import { ImagePlaceholder } from "./image-placeholder.js";
 import type { Product } from "./types.js";
 
 export interface ProductGridProps {
@@ -19,14 +20,20 @@ export function ProductGrid({
             className="group block rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <Card className="h-full overflow-hidden p-0 transition-shadow group-hover:shadow-md">
-              {product.images[0] ? (
+              {product.images[0]?.src ? (
                 <img
                   src={product.images[0].src}
                   alt={product.images[0].alt}
                   className="aspect-[4/3] w-full object-cover"
                   loading="lazy"
                 />
-              ) : null}
+              ) : (
+                <ImagePlaceholder
+                  alt={product.images[0]?.alt ?? `${product.name} product photo`}
+                  className="aspect-[4/3] w-full"
+                  label="Product image"
+                />
+              )}
               <CardContent className="space-y-2 py-5">
                 <CardTitle>{product.name}</CardTitle>
                 <p className="line-clamp-2 text-sm text-muted-foreground">

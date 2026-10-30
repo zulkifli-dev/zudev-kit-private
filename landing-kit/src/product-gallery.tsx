@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ImagePlaceholder } from "./image-placeholder.js";
 import type { ImageAsset } from "./types.js";
 
 export interface ProductGalleryProps {
@@ -13,11 +14,19 @@ export function ProductGallery({ images }: ProductGalleryProps) {
 
   return (
     <div className="space-y-3">
-      <img
-        src={selectedImage.src}
-        alt={selectedImage.alt}
-        className="aspect-square w-full rounded-xl object-cover"
-      />
+      {selectedImage.src ? (
+        <img
+          src={selectedImage.src}
+          alt={selectedImage.alt}
+          className="aspect-square w-full rounded-xl object-cover"
+        />
+      ) : (
+        <ImagePlaceholder
+          alt={selectedImage.alt}
+          className="aspect-square w-full rounded-xl"
+          label="Product image"
+        />
+      )}
       {images.length > 1 ? (
         <ul className="flex flex-wrap gap-2" aria-label="Product images">
           {images.map((image, index) => (
@@ -29,12 +38,20 @@ export function ProductGallery({ images }: ProductGalleryProps) {
                 aria-pressed={selectedIndex === index}
                 onClick={() => setSelectedIndex(index)}
               >
-                <img
-                  src={image.src}
-                  alt=""
-                  className="size-full object-cover"
-                  loading="lazy"
-                />
+                {image.src ? (
+                  <img
+                    src={image.src}
+                    alt=""
+                    className="size-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <ImagePlaceholder
+                    alt={image.alt}
+                    className="size-full rounded-none"
+                    label="Image"
+                  />
+                )}
               </button>
             </li>
           ))}

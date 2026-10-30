@@ -6,7 +6,7 @@ export interface ProductCategory {
 }
 
 export interface ImageAsset {
-  src: string;
+  src?: string;
   alt: string;
 }
 
