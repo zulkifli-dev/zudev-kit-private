@@ -1,4 +1,5 @@
 import { Button } from "@zudev/ui/components/button";
+import { useState } from "react";
 import type { ProductCategory } from "./types.js";
 
 export interface CategoryNavigationProps {
@@ -8,37 +9,63 @@ export interface CategoryNavigationProps {
   allLabel?: string;
 }
 
+interface CategoryItemsProps extends Omit<CategoryNavigationProps, "allLabel"> {
+  expandedCategoryIds: string[];
+  onToggleCategory: (categoryId: string) => void;
+}
+
 function CategoryItems({
   categories,
   selectedCategoryId,
   onSelectCategory,
-}: Omit<CategoryNavigationProps, "allLabel">) {
+  expandedCategoryIds,
+  onToggleCategory,
+}: CategoryItemsProps) {
   return (
-    <ul className="space-y-1">
-      {categories.map((category) => (
-        <li key={category.id}>
-          <Button
-            type="button"
-            variant={selectedCategoryId === category.id ? "secondary" : "ghost"}
-            className="h-auto w-full justify-start px-3 py-2 text-left"
-            aria-current={
-              selectedCategoryId === category.id ? "page" : undefined
-            }
-            onClick={() => onSelectCategory(category.id)}
-          >
-            {category.name}
-          </Button>
-          {category.children?.length ? (
-            <div className="ml-3 border-l pl-2">
-              <CategoryItems
-                categories={category.children}
-                selectedCategoryId={selectedCategoryId}
-                onSelectCategory={onSelectCategory}
-              />
-            </div>
-          ) : null}
-        </li>
-      ))}
+    <ul className="space-y-2">
+      {categories.map((category) => {
+        const selectedChild = category.children?.find(
+          (child) => child.id === selectedCategoryId,
+        );
+        const isActive =
+          selectedCategoryId === category.id || selectedChild !== undefined;
+        const isExpanded = expandedCategoryIds.includes(category.id);
+
+        return (
+          <li key={category.id}>
+            <Button
+              type="button"
+              variant={isActive ? "default" : "ghost"}
+              className="h-auto w-full justify-between px-3 py-2 text-left"
+              aria-current={isActive ? "page" : undefined}
+              aria-expanded={category.children?.length ? isExpanded : undefined}
+              aria-controls={category.children?.length ? `category-children-${category.id}` : undefined}
+              onClick={() => {
+                if (category.children?.length) onToggleCategory(category.id);
+                else onSelectCategory(category.id);
+              }}
+            >
+              {category.name}
+              {category.children?.length ? (
+                <span aria-hidden="true" className="catalog-category-indicator">
+                  {isExpanded ? "−" : "+"}
+                </span>
+              ) : null}
+            </Button>
+            {category.children?.length && isExpanded ? (
+              <div id={`category-children-${category.id}`} className="ml-3 mt-2 border-l pl-2">
+                <CategoryItems
+                  categories={category.children}
+                  selectedCategoryId={selectedCategoryId}
+                  onSelectCategory={onSelectCategory}
+                  expandedCategoryIds={expandedCategoryIds}
+                  onToggleCategory={onToggleCategory}
+                />
+              </div>
+            ) : null}
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -49,11 +76,21 @@ export function CategoryNavigation({
   onSelectCategory,
   allLabel = "All products",
 }: CategoryNavigationProps) {
+  const [expandedCategoryIds, setExpandedCategoryIds] = useState<string[]>([]);
+
+  function toggleCategory(categoryId: string) {
+    setExpandedCategoryIds((current) =>
+      current.includes(categoryId)
+        ? current.filter((id) => id !== categoryId)
+        : [...current, categoryId],
+    );
+  }
+
   return (
     <nav aria-label="Product categories" className="space-y-2">
       <Button
         type="button"
-        variant={selectedCategoryId === null ? "secondary" : "ghost"}
+        variant={selectedCategoryId === null ? "default" : "ghost"}
         className="h-auto w-full justify-start px-3 py-2 text-left"
         aria-current={selectedCategoryId === null ? "page" : undefined}
         onClick={() => onSelectCategory(null)}
@@ -64,6 +101,8 @@ export function CategoryNavigation({
         categories={categories}
         selectedCategoryId={selectedCategoryId}
         onSelectCategory={onSelectCategory}
+        expandedCategoryIds={expandedCategoryIds}
+        onToggleCategory={toggleCategory}
       />
     </nav>
   );
