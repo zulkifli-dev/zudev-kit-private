@@ -1,5 +1,5 @@
 import { Button } from "@zudev/ui/components/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ProductCategory } from "./types.js";
 
 export interface CategoryNavigationProps {
@@ -12,6 +12,18 @@ export interface CategoryNavigationProps {
 interface CategoryItemsProps extends Omit<CategoryNavigationProps, "allLabel"> {
   expandedCategoryIds: string[];
   onToggleCategory: (categoryId: string) => void;
+}
+
+function getAncestorIds(categories: ProductCategory[], selectedId: string | null): string[] {
+  if (!selectedId) return [];
+
+  for (const category of categories) {
+    if (category.children?.some((child) => child.id === selectedId)) return [category.id];
+    const ancestors = category.children ? getAncestorIds(category.children, selectedId) : [];
+    if (ancestors.length) return [category.id, ...ancestors];
+  }
+
+  return [];
 }
 
 function CategoryItems({
@@ -76,7 +88,16 @@ export function CategoryNavigation({
   onSelectCategory,
   allLabel = "All products",
 }: CategoryNavigationProps) {
-  const [expandedCategoryIds, setExpandedCategoryIds] = useState<string[]>([]);
+  const [expandedCategoryIds, setExpandedCategoryIds] = useState<string[]>(() =>
+    getAncestorIds(categories, selectedCategoryId),
+  );
+
+  useEffect(() => {
+    const ancestors = getAncestorIds(categories, selectedCategoryId);
+    if (ancestors.length) {
+      setExpandedCategoryIds((current) => [...new Set([...current, ...ancestors])]);
+    }
+  }, [categories, selectedCategoryId]);
 
   function toggleCategory(categoryId: string) {
     setExpandedCategoryIds((current) =>
