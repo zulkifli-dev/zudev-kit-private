@@ -7,7 +7,7 @@ export type StoredMedia = {
 };
 
 export type MediaDraftItem =
-  | (StoredMedia & { kind: "stored" })
+  | (StoredMedia & { kind: "stored"; fallbackPreviewUrl?: string })
   | {
       kind: "new";
       clientId: string;
@@ -37,6 +37,7 @@ export type UseMediaDraftResult = {
   getChanges: () => MediaDraftChange;
   reset: () => void;
   commit: (savedMedia: readonly StoredMedia[]) => void;
+  releasePreview: (previewUrl: string) => void;
 };
 
 export function useMediaDraft(
@@ -81,14 +82,52 @@ export function useMediaDraft(
 
   const commit = useCallback(
     (savedMedia: readonly StoredMedia[]) => {
-      discardNewItems();
+      const previousItems = itemsRef.current;
+      const nextItems: MediaDraftItem[] = savedMedia.map((media, index) => {
+        const previous = previousItems[index];
+        const fallbackPreviewUrl =
+          previous?.kind === "new"
+            ? previous.previewUrl
+            : previous?.kind === "stored"
+              ? previous.fallbackPreviewUrl
+              : undefined;
+        return {
+          ...media,
+          kind: "stored",
+          ...(fallbackPreviewUrl ? { fallbackPreviewUrl } : {}),
+        };
+      });
+      const retainedPreviews = new Set(
+        nextItems.flatMap((item) =>
+          item.kind === "stored" && item.fallbackPreviewUrl
+            ? [item.fallbackPreviewUrl]
+            : [],
+        ),
+      );
+      for (const [clientId, url] of objectUrls.current) {
+        if (!retainedPreviews.has(url)) revoke(clientId);
+      }
       initialRef.current = savedMedia;
       removedIds.current.clear();
-      updateItems(() =>
-        savedMedia.map((media) => ({ ...media, kind: "stored" })),
+      updateItems(() => nextItems);
+    },
+    [revoke, updateItems],
+  );
+
+  const releasePreview = useCallback(
+    (previewUrl: string) => {
+      for (const [clientId, url] of objectUrls.current) {
+        if (url === previewUrl) revoke(clientId);
+      }
+      updateItems((current) =>
+        current.map((item) =>
+          item.kind === "stored" && item.fallbackPreviewUrl === previewUrl
+            ? { ...item, fallbackPreviewUrl: undefined }
+            : item,
+        ),
       );
     },
-    [discardNewItems, updateItems],
+    [revoke, updateItems],
   );
 
   const addFiles = useCallback(
@@ -210,5 +249,6 @@ export function useMediaDraft(
     getChanges,
     reset,
     commit,
+    releasePreview,
   };
 }

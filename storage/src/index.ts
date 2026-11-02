@@ -70,6 +70,11 @@ export function loadStorageConfig(
   if (!(["https:", "http:"].includes(parsedPublicUrl.protocol) && !parsedPublicUrl.username && !parsedPublicUrl.password)) {
     throw new Error("R2_PUBLIC_BASE_URL must use HTTP(S) and must not contain credentials.");
   }
+  if (parsedPublicUrl.hostname.toLowerCase().endsWith(".r2.cloudflarestorage.com")) {
+    throw new Error(
+      "R2_PUBLIC_BASE_URL must be an R2 public bucket URL or custom domain, not the S3 API endpoint.",
+    );
+  }
 
   return {
     accountId,
