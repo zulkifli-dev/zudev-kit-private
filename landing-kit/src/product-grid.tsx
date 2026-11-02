@@ -1,4 +1,4 @@
-import { Card, CardContent, CardTitle } from "@zudev/ui/components/card";
+import { Card, CardContent, CardTitle } from "@zulkifli-dev/ui/components/card";
 import { ImagePlaceholder } from "./image-placeholder.js";
 import type { Product } from "./types.js";
 

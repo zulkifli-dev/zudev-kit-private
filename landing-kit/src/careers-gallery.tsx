@@ -3,7 +3,7 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-} from "@zudev/ui/components/dialog";
+} from "@zulkifli-dev/ui/components/dialog";
 import type { ImageAsset } from "./types.js";
 import { ImagePlaceholder } from "./image-placeholder.js";
 

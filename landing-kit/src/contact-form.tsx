@@ -1,6 +1,6 @@
-import { Button } from "@zudev/ui/components/button";
-import { Input } from "@zudev/ui/components/input";
-import { Textarea } from "@zudev/ui/components/textarea";
+import { Button } from "@zulkifli-dev/ui/components/button";
+import { Input } from "@zulkifli-dev/ui/components/input";
+import { Textarea } from "@zulkifli-dev/ui/components/textarea";
 import { type FormEvent, useId, useState } from "react";
 import type { ContactFormValues } from "./types.js";
 

@@ -1,6 +1,7 @@
 {
   "name": "@zulkifli-dev/dashboard",
   "version": "1.0.0",
+  "repository": { "type": "git", "url": "https://github.com/zulkifli-dev/zudev-kit-private.git", "directory": "dashboard" },
   "type": "module",
   "files": ["dist", "styles.css"],
   "exports": {
@@ -12,7 +13,7 @@
     "./styles.css": "./styles.css"
   },
   "dependencies": {
-    "@zudev/ui": "^1.0.0",
+    "@zulkifli-dev/ui": "^1.0.0",
     "lucide-react": "^1.65.0"
   },
   "peerDependencies": {

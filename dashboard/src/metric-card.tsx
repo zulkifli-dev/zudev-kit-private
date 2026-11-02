@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@zudev/ui/components/card";
+import { Card, CardContent } from "@zulkifli-dev/ui/components/card";
 import type { LucideIcon } from "lucide-react";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 

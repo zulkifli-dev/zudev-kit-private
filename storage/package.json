@@ -1,6 +1,7 @@
 {
   "name": "@zulkifli-dev/storage",
   "version": "1.0.0",
+  "repository": { "type": "git", "url": "https://github.com/zulkifli-dev/zudev-kit-private.git", "directory": "storage" },
   "type": "module",
   "files": ["dist"],
   "exports": {

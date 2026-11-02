@@ -1,4 +1,4 @@
-import { Button } from "@zudev/ui/components/button";
+import { Button } from "@zulkifli-dev/ui/components/button";
 import { useEffect, useState } from "react";
 import type { ProductCategory } from "./types.js";
 

@@ -1,6 +1,7 @@
 {
   "name": "@zulkifli-dev/auth",
   "version": "1.0.0",
+  "repository": { "type": "git", "url": "https://github.com/zulkifli-dev/zudev-kit-private.git", "directory": "auth" },
   "type": "module",
   "files": ["dist"],
   "exports": { ".": { "types": "./dist/index.d.ts", "bun": "./src/index.ts", "default": "./dist/index.js" } },
