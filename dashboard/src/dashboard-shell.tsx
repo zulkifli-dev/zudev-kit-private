@@ -1,4 +1,4 @@
-import { Button } from "@zulkifli-dev/ui/components/button";
+import { Button } from "@zudev/ui/components/button";
 import type { LucideIcon } from "lucide-react";
 import { ChevronRight, Menu, X } from "lucide-react";
 import { type ReactNode, useState } from "react";

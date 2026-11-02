@@ -1,4 +1,4 @@
-# `@zulkifli-dev/storage`
+# `@zudev/storage`
 
 Adapter server-side untuk Cloudflare R2 melalui AWS SDK for JavaScript v3. Package ini hanya menangani operasi object storage; validasi gambar, metadata database, dan lifecycle penggantian media menjadi tanggung jawab aplikasi pemakai.
 
@@ -23,7 +23,7 @@ import {
   createObjectKey,
   createStorage,
   loadStorageConfig,
-} from "@zulkifli-dev/storage";
+} from "@zudev/storage";
 
 const storage = createStorage(loadStorageConfig());
 const key = createObjectKey("products");

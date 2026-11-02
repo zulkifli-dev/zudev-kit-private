@@ -3,7 +3,7 @@ import {
   CardContent,
   CardDescription,
   CardTitle,
-} from "@zulkifli-dev/ui/components/card";
+} from "@zudev/ui/components/card";
 import { ImagePlaceholder } from "./image-placeholder.js";
 import type { Article } from "./types.js";
 
