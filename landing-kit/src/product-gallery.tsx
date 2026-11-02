@@ -18,7 +18,7 @@ export function ProductGallery({ images }: ProductGalleryProps) {
         <img
           src={selectedImage.src}
           alt={selectedImage.alt}
-          className="aspect-square w-full rounded-xl object-cover"
+          className="aspect-square w-full rounded-xl border border-[#dce4eb] object-cover"
         />
       ) : (
         <ImagePlaceholder

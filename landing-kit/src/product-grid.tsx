@@ -1,3 +1,4 @@
+import { MarkdownContent } from "@zudev/markdown-editor";
 import { Card, CardContent, CardTitle } from "@zudev/ui/components/card";
 import { ImagePlaceholder } from "./image-placeholder.js";
 import type { Product } from "./types.js";
@@ -40,9 +41,11 @@ export function ProductGrid({
               )}
               <CardContent className="flex flex-col items-start gap-2 px-4 py-4">
                 <CardTitle className="text-[15px] font-semibold leading-5">{product.name}</CardTitle>
-                <p className="line-clamp-2 text-xs leading-[1.45] text-muted-foreground">
-                  {product.description}
-                </p>
+                <div className="line-clamp-2 text-xs leading-[1.45] text-muted-foreground">
+                  <MarkdownContent className="text-xs leading-[1.45] text-muted-foreground [&_p]:my-0">
+                    {product.description}
+                  </MarkdownContent>
+                </div>
                 <span className="inline-flex min-h-9 items-center gap-2 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors group-hover:bg-primary/90">
                   {actionLabel}<span aria-hidden="true">→</span>
                 </span>
