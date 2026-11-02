@@ -20,7 +20,7 @@ export type StorageEnvironment = Partial<Record<
   | "R2_BUCKET_NAME"
   | "R2_PUBLIC_BASE_URL",
   string
->>;
+>> & { NODE_ENV?: string };
 
 export type UploadObjectInput = {
   key: string;
@@ -67,8 +67,16 @@ export function loadStorageConfig(
   } catch {
     throw new Error("R2_PUBLIC_BASE_URL must be an absolute HTTP(S) URL.");
   }
-  if (!(["https:", "http:"].includes(parsedPublicUrl.protocol) && !parsedPublicUrl.username && !parsedPublicUrl.password)) {
-    throw new Error("R2_PUBLIC_BASE_URL must use HTTP(S) and must not contain credentials.");
+  const isLocalDevelopment = environment.NODE_ENV === "development";
+  if (
+    (parsedPublicUrl.protocol !== "https:" && !isLocalDevelopment) ||
+    (parsedPublicUrl.protocol !== "https:" && parsedPublicUrl.protocol !== "http:") ||
+    parsedPublicUrl.username ||
+    parsedPublicUrl.password
+  ) {
+    throw new Error(
+      "R2_PUBLIC_BASE_URL must use HTTPS outside local development and must not contain credentials.",
+    );
   }
   if (parsedPublicUrl.hostname.toLowerCase().endsWith(".r2.cloudflarestorage.com")) {
     throw new Error(
