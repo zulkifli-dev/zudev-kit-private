@@ -1,8 +1,14 @@
 # Zudev Kit Private
 
-Private reusable modules are published independently under the `@zulkifli-dev` GitHub Packages scope. This repository currently contains `@zulkifli-dev/landing-kit`.
+Private reusable modules are published independently under the `@zulkifli-dev` GitHub Packages scope. This repository currently contains `@zulkifli-dev/auth`, `@zulkifli-dev/landing-kit`, and `@zulkifli-dev/dashboard`.
+
+`@zulkifli-dev/auth` provides runtime-neutral Web Crypto password hashing, cryptographically random opaque session tokens, SHA-256 token fingerprints, and hardened cookie helpers. Store only password hashes and token fingerprints in the application's auth database. Lafacus uses Prisma/PostgreSQL for its seeded admin account and revocable sessions; it does not need `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH`, or `AUTH_SECRET` environment variables.
+
+The shared package supplies cryptographic primitives, not a user database, account recovery, MFA, or distributed login throttling. Each app must validate its opaque session token against its own session store on the server before serving private data or mutations; hiding a dashboard route in the browser is not access control.
 
 `landing-kit` exports `CategoryNavigation`, `ProductGrid`, `ProductGallery`, `ArticleList`, `CareersGallery`, `ContactForm`, and `LocationMap`, plus their data types. Categories are nested through `children`, products carry an image array, Careers accepts images only, and map coordinates are supplied by the consuming app.
+
+`dashboard` exports reusable admin dashboard modules including the responsive shell, page header, and metric card. It uses the public `@zudev/ui` primitives and leaves route content and CMS data to the app.
 
 ## Local development
 
