@@ -1,9 +1,17 @@
 {
   "name": "@zulkifli-dev/landing-kit",
   "version": "1.0.0",
-  "repository": { "type": "git", "url": "https://github.com/zulkifli-dev/zudev-kit-private.git", "directory": "landing-kit" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zulkifli-dev/zudev-kit-private.git",
+    "directory": "landing-kit"
+  },
   "type": "module",
-  "files": ["dist", "styles.css"],
+  "files": [
+    "dist",
+    "styles.css",
+    "src"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -30,6 +38,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
   }
 }

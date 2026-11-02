@@ -1,6 +1,6 @@
 # Zudev Kit Private
 
-Reusable modules are published independently under the `@zulkifli-dev` GitHub Packages scope. This repository contains `@zulkifli-dev/auth`, `@zulkifli-dev/dashboard`, `@zulkifli-dev/landing-kit`, `@zulkifli-dev/storage`, and `@zulkifli-dev/media-editor`.
+Reusable modules are published as public npm packages under the `@zulkifli-dev` scope. This repository contains `@zulkifli-dev/auth`, `@zulkifli-dev/dashboard`, `@zulkifli-dev/landing-kit`, `@zulkifli-dev/storage`, and `@zulkifli-dev/media-editor`.
 
 `@zulkifli-dev/auth` provides runtime-neutral Web Crypto password hashing, cryptographically random opaque session tokens, SHA-256 token fingerprints, and hardened cookie helpers. Store only password hashes and token fingerprints in the application's auth database. Lafacus uses Prisma/PostgreSQL for its seeded admin account and revocable sessions; it does not need `ADMIN_EMAIL`, `ADMIN_PASSWORD_HASH`, or `AUTH_SECRET` environment variables.
 
@@ -24,11 +24,11 @@ The package relies on `@zulkifli-dev/ui` `^1.0.0`. A standalone install from thi
 
 Apps using the landing modules should import `@zulkifli-dev/landing-kit/styles.css` in their Tailwind CSS v4 entry stylesheet. That import includes the shared UI theme and registers the landing-kit component classes for Tailwind scanning.
 
-## GitHub Packages
+## npm registry
 
-The `.npmrc` maps `@zulkifli-dev` to GitHub Packages and reads `GITHUB_PACKAGES_TOKEN` from the environment. Use a classic PAT with `read:packages` to install and `write:packages` to publish, or `GITHUB_TOKEN` in a GitHub Actions workflow with package access. Never store token values in this repository.
+The `.npmrc` maps `@zulkifli-dev` to the public npm registry. Public installs need no registry token. Publishing from GitHub Actions uses the `NPM_TOKEN` repository secret; never commit token values.
 
-Each package is configured with `publishConfig.registry: https://npm.pkg.github.com` and its GitHub repository URL. Run the **Publish GitHub Packages** workflow from the Actions tab after the public kit's `@zulkifli-dev/ui` has been published and made public. The workflow uses this repository's `GITHUB_TOKEN` with `packages: write`. Git repository privacy and package visibility are separate settings; GitHub Packages makes a newly published package private by default. See [GitHub's npm registry guide](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-npm-registry).
+Each package is configured to publish to npm. After publishing the public kit, add an npm granular access token as the `NPM_TOKEN` Actions secret, then run the **Publish npm Packages** workflow in this repository. The published package contents are public even though this source repository is private.
 
 
-After the first publish, GitHub marks each npm package private by default. Open each package page and choose **Package settings → Change visibility → Public**. This visibility change is irreversible. Publishing needs a classic PAT with `write:packages`; installing needs `read:packages`, including for public npm packages. Keep the token in `GITHUB_PACKAGES_TOKEN` in the shell and never commit it.
+Run `bun publish --recursive --access public` from this repository root after `bun install` and `bun run build`. `@zulkifli-dev/ui` from the public kit must already exist on npm. Use an npm account that owns `@zulkifli-dev`.

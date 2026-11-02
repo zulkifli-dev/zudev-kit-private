@@ -1,11 +1,33 @@
 {
   "name": "@zulkifli-dev/auth",
   "version": "1.0.0",
-  "repository": { "type": "git", "url": "https://github.com/zulkifli-dev/zudev-kit-private.git", "directory": "auth" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zulkifli-dev/zudev-kit-private.git",
+    "directory": "auth"
+  },
   "type": "module",
-  "files": ["dist"],
-  "exports": { ".": { "types": "./dist/index.d.ts", "bun": "./src/index.ts", "default": "./dist/index.js" } },
-  "scripts": { "build": "tsc -p tsconfig.json", "lint": "biome check src", "typecheck": "tsc --noEmit -p tsconfig.json" },
-  "devDependencies": { "typescript": "^5.8.3" },
-  "publishConfig": { "registry": "https://npm.pkg.github.com" }
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "bun": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "biome check src",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  }
 }
