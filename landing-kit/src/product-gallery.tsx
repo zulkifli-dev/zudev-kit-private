@@ -13,20 +13,22 @@ export function ProductGallery({ images }: ProductGalleryProps) {
   if (!selectedImage) return null;
 
   return (
-    <div className="space-y-3">
-      {selectedImage.src ? (
-        <img
-          src={selectedImage.src}
-          alt={selectedImage.alt}
-          className="aspect-square w-full rounded-xl border border-[#dce4eb] object-cover"
-        />
-      ) : (
-        <ImagePlaceholder
-          alt={selectedImage.alt}
-          className="aspect-square w-full rounded-xl"
-          label="Product image"
-        />
-      )}
+    <div className="min-w-0 space-y-3">
+      <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-[#dce4eb]">
+        {selectedImage.src ? (
+          <img
+            src={selectedImage.src}
+            alt={selectedImage.alt}
+            className="absolute inset-0 size-full object-contain"
+          />
+        ) : (
+          <ImagePlaceholder
+            alt={selectedImage.alt}
+            className="absolute inset-0 size-full rounded-none"
+            label="Product image"
+          />
+        )}
+      </div>
       {images.length > 1 ? (
         <ul className="flex flex-wrap gap-2" aria-label="Product images">
           {images.map((image, index) => (
